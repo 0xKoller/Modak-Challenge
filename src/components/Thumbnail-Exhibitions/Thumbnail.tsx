@@ -1,29 +1,29 @@
 import React, {FC} from 'react';
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 
 import { Exhibitions } from '../../types/index';
 
 const ThumbnailExhibitions: FC<{exhibitions: Exhibitions[]}> = ({ exhibitions }) => {
     const BASE_IMAGE_URL = `https://www.artic.edu/iiif/2/`
     const DEFAULT_RES = `/full/843,/0/default.jpg`
-    console.log(exhibitions)
+    const cleanTags = (description) => {
+        return description.replace(/<\/?p>/g, '');
+    }
     return (
-        <View >
-            <ScrollView>
+        <View style={styles.container}>
             {exhibitions?.map((exhibition) => (
-                <View style={styles.container} key={exhibition.id}>
+                <View style={styles.exhibition} key={exhibition.id}>
                     {exhibition.image_id !== null && (
                         <Image style={styles.image} source={{uri: `${BASE_IMAGE_URL}${exhibition.image_id}${DEFAULT_RES}`}} />
                     )}
                     <View style={styles.detail}>
                         <Text style={styles.title}>{exhibition.title}</Text>
-                        <Text style={styles.subtitle}>{exhibition.gallery_title}</Text>
-                        <Text style={styles.description}>{exhibition.short_description}</Text>
+                        {exhibition.gallery_title !== null && <Text style={styles.subtitle}>Been displayed at {exhibition.gallery_title}</Text>}
+                        <Text style={styles.description}>{cleanTags(exhibition.short_description)}</Text>
                     </View>
                 </View>
             )
             )}
-            </ScrollView>
         </View>
     );
 }
@@ -34,44 +34,52 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fefefe',
         justifyContent: 'space-around',
-        width: "80%", // Mantener el ancho en 25%
-        padding: 10, // Ajustar según sea necesario
-        margin: 10, // Ajustar según sea necesario
-        shadowColor: "#000", // El color de la sombra
-        shadowOffset: { width: 0, height: 4 }, // La dirección de la sombra
-        shadowOpacity: 0.3, // La opacidad de la sombra
-        shadowRadius: 5, // El desenfoque de la sombra
-        borderRadius: 10, // El radio de la esquina del elemento
-        // Propiedad de sombra para Android
-        elevation: 8, // La altura de la sombra, que da el efecto 3D
+        width: "80%", 
+        margin: 10, 
+    },
+    exhibition:
+    {
+        alignItems: 'center',
+        backgroundColor: '#fefefe',
+        justifyContent: 'space-around',
+        width: "100%", 
+        padding: 10, 
+        margin: 10, 
+        shadowColor: "#000", 
+        shadowOffset: { width: 0, height: 4 }, 
+        shadowOpacity: 0.3, 
+        shadowRadius: 5,
+        borderRadius: 10, 
+        elevation: 8, 
     },
     image: {
         width: 300,
         height: 300,
         borderRadius: 10,
-        overflow: 'hidden',
+        overflow: 'hidden'
     },
     detail: {
-        alignSelf: 'stretch', // Asegura que el contenedor se extienda completamente
-        marginTop: 10,
+        alignSelf: 'stretch'
     },
     title: {
         fontSize: 18,
         fontWeight: "bold",
         color: "#555",
-        textAlign: 'left', // Asegura que el texto está alineado a la izquierda
+        textAlign: 'left'
     },
     subtitle: {
         fontSize: 14,
         fontWeight: "normal",
         color: "#CCC",
-        textAlign: 'left', // Asegura que el texto está alineado a la izquierda
+        textAlign: 'left'
     },
     description: {
         fontSize: 14,
         fontWeight: "normal",
-        color: "#CCC",
-        textAlign: 'left', // Asegura que el texto está alineado a la izquierda
+        color: "#888",
+        textAlign: 'left',
+        lineHeight: 20,
+        marginTop: 10
     },
 });
 

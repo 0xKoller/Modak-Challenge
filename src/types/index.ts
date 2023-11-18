@@ -12,4 +12,8 @@ export type Exhibitions = {
     api_link?: string;
     short_description?: string;
     gallery_title?: string;
+    status?: string;
+    aic_start_at?: string;
+    aic_end_at?: string;
+    artwork_ids?: string[];
 };

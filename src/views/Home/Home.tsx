@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, ActivityIndicator, Text } from 'react-native';
+import { StyleSheet, View, ActivityIndicator, Text, ScrollView } from 'react-native';
 
 import Header from '../../components/Header';
 import ThumbnailArtwork from '../../components/Thumbnail-Artwork/Thumbnail';
@@ -23,22 +23,27 @@ const Home = () => {
             }
         };
         const getLatestExhibitions = async () => {
-             try {
-                const quantity = 4; // Como solo esperas un objeto
-                const response = await fetchApi(`/exhibitions?limit=${quantity}&fields=id,title,gallery_title,short_description,image_id`);
+            const oneYearAgo = new Date();
+            oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+            const oneYearAgoDateString = oneYearAgo.toISOString(); // Formato ISO 8601
+
+            try {
+                const quantity = 4; 
+                const response = await fetchApi(`/exhibitions/search?query[range][aic_start_at][gte]=${oneYearAgoDateString}&limit=${quantity}&fields=id,title,short_description,gallery_title,image_id,aic_start_at, aic_end_at`);
                 setExhibitions(response.data);
             } catch (error) {
                 console.log(error);
             }
-        }
+        };
         getLatestArtwork().catch(console.error);
         getLatestExhibitions().catch(console.error);
     }, []);
 
-    // console.log(exhibitions);
+    
     return (
         <View style={styles.container}>
             <Header />
+            <ScrollView>
             <View>
                 <Text style={styles.title}>Art of the day</Text>
                 <View style={styles.artOfTheDay}>
@@ -51,7 +56,7 @@ const Home = () => {
                     {exhibitions.length === 0 ? <ActivityIndicator size="large" color="#ccc" /> : <ThumbnailExhibitions exhibitions={exhibitions} />}
                 </View>
             </View>
-
+            </ScrollView>
         </View>
     );
 };
