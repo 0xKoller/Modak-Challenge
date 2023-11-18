@@ -29,7 +29,7 @@ const Home = () => {
 
             try {
                 const quantity = 4; 
-                const response = await fetchApi(`/exhibitions/search?query[range][aic_start_at][gte]=${oneYearAgoDateString}&limit=${quantity}&fields=id,title,short_description,gallery_title,image_id,aic_start_at, aic_end_at`);
+                const response = await fetchApi(`/exhibitions/search?query[range][aic_start_at][gte]=${oneYearAgoDateString}&limit=${quantity}&fields=id,title,short_description,gallery_title,image_url,aic_start_at, aic_end_at`);
                 setExhibitions(response.data);
             } catch (error) {
                 console.log(error);

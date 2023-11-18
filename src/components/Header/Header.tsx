@@ -1,7 +1,21 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+import {RootStackParams } from '../../types/index';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+type SavedNavigationProp = NativeStackNavigationProp<RootStackParams, 'Saved'>;
 
 const Header = () => {
+    
+
+    const {navigate} = useNavigation<SavedNavigationProp>();
+    
+    const handleView = () => {
+        navigate('Saved');
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.left}>
@@ -9,6 +23,9 @@ const Header = () => {
             </View>
             <View style={styles.right}>
                 <Text style={styles.title}>Header</Text>
+                <TouchableOpacity onPress={handleView}>
+                    <Text>Saved</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );

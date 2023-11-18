@@ -6,6 +6,7 @@ import { RootStackParams } from '../types';
 import Home from '../views/Home';
 import ArtworkDetail from '../views/ArtworkDetail';
 import ExhibitionDetail from '../views/ExhibitionDetail';
+import Saved from '../views/Saved';
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 const screenOptions = {
@@ -19,6 +20,7 @@ const Routes = () => (
                 <Stack.Screen name="Home" component={Home} options={screenOptions}/>
                 <Stack.Screen name="ArtworkDetail" component={ArtworkDetail} options={screenOptions}/>
                 <Stack.Screen name="ExhibitionDetail" component={ExhibitionDetail} options={screenOptions}/>
+                <Stack.Screen name="Saved" component={Saved} options={screenOptions}/>
             </Stack.Navigator>
         </NavigationContainer>
 )
