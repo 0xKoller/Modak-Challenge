@@ -17,3 +17,9 @@ export type Exhibitions = {
     aic_end_at?: string;
     artwork_ids?: string[];
 };
+
+export type RootStackParams = {
+    Home: undefined;
+    ArtworkDetail: Artwork;
+    ExhibitionDetail: { id: string };
+}

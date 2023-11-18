@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
 import { Exhibitions } from '../../types/index';
 
@@ -21,6 +21,9 @@ const ThumbnailExhibitions: FC<{exhibitions: Exhibitions[]}> = ({ exhibitions })
                         {exhibition.gallery_title !== null && <Text style={styles.subtitle}>Been displayed at {exhibition.gallery_title}</Text>}
                         <Text style={styles.description}>{cleanTags(exhibition.short_description)}</Text>
                     </View>
+                    <TouchableOpacity style={styles.button}>
+                        <Text>See more</Text>
+                    </TouchableOpacity>
                 </View>
             )
             )}
@@ -80,6 +83,13 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         lineHeight: 20,
         marginTop: 10
+    },
+    
+    button: {
+        backgroundColor: '#f0f0f0',
+        padding: 10,
+        borderRadius: 5,
+        marginTop: 15,
     },
 });
 
