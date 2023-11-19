@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, ScrollView, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native'
 import useArtworkStorage from '../../hooks/useArtworkStorage';
-import Header from '../../components/Header';
 
 import fetchApi from '../../utils/fetch';
 

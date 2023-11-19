@@ -26,7 +26,6 @@ const Home = () => {
             const oneYearAgo = new Date();
             oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
             const oneYearAgoDateString = oneYearAgo.toISOString(); // Formato ISO 8601
-
             try {
                 const quantity = 4; 
                 const response = await fetchApi(`/exhibitions/search?query[range][aic_start_at][gte]=${oneYearAgoDateString}&limit=${quantity}&fields=id,title,short_description,gallery_title,image_url,aic_start_at, aic_end_at`);
@@ -42,7 +41,6 @@ const Home = () => {
     
     return (
         <View style={styles.container}>
-            {/* <Header /> */}
             <ScrollView>
             <View>
                 <Text style={styles.title}>Art of the day</Text>
