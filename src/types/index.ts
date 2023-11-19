@@ -29,8 +29,9 @@ export type Exhibitions = {
 };
 
 export type RootStackParams = {
-    Home: undefined;
+    HomeTabs: undefined;
     ArtworkDetail: Artwork;
     ExhibitionDetail: { id: string };
     Saved: undefined;
+    Discover: undefined;
 }

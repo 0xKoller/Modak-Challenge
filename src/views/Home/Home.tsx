@@ -42,7 +42,7 @@ const Home = () => {
     
     return (
         <View style={styles.container}>
-            <Header />
+            {/* <Header /> */}
             <ScrollView>
             <View>
                 <Text style={styles.title}>Art of the day</Text>
