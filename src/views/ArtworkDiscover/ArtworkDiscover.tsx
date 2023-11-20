@@ -1,10 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { View, Text, StyleSheet, ScrollView, ActivityIndicator, TextInput } from 'react-native'
-import { useNavigation } from '@react-navigation/native';
 
-
-import {RootStackParams } from '../../types/index';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import ThumbnailArtwork from '../../components/Thumbnail-Artwork';
 import fetchApi from '../../utils/fetch';
 
@@ -12,8 +8,8 @@ import { Artwork } from '../../types';
 
 const ArtworkDiscover = () => {
     const [artwork, setArtwork] = useState<Artwork[]>([]);
-    const [isLoading, setIsLoading] = useState<Boolean>(true);
-    const [searchQuery, setSearchQuery] = useState<string>(''); // Estado para el input de búsqueda
+    const [isLoading, setIsLoading] = useState<Boolean>(false);
+    const [searchQuery, setSearchQuery] = useState<string>(''); 
 
     const getLatestArtwork = async () => {
         await fetchApi(`/artworks/search?q=${searchQuery}&limit=10&fields=id,title,artist_display,image_id`)
@@ -21,50 +17,73 @@ const ArtworkDiscover = () => {
             setArtwork(response.data);
         })
     };
-    useEffect(() => {
-        getLatestArtwork().catch(console.error).finally(() => {setIsLoading(false)});
-    }, []);
 
-    useEffect(() => {
-        if (artwork !== undefined && artwork.length > 0) {
-            console.log(artwork)
+
+   useEffect(() => {
+        if (searchQuery !== '') {
+            setIsLoading(true); 
+            getLatestArtwork().catch(console.error).finally(() => setIsLoading(false));
         }
-    }, [artwork])
-
-    useEffect(() => {
-        getLatestArtwork().catch(console.error).finally(() => {setIsLoading(false)});
-    }, [searchQuery])
+    }, [searchQuery]);
 
     const handleSearch = (query: string) => {
         setSearchQuery(query);
     }
   return (
-    <ScrollView>
-        <Text>ArtworkDiscover</Text>
-        <TextInput
-                style={styles.input}
-                value={searchQuery}
-                onChangeText={handleSearch}
-                placeholder="Search..."
-                placeholderTextColor="#666"
-            />
-            <View>
-                {artwork.length === 0 ? <ActivityIndicator size="large" color="#ccc" /> : artwork.map((art) => <ThumbnailArtwork key={art.id} {...art} />)}
+        <ScrollView>
+            <View style={styles.container}>
+                <View style={styles.header}>
+                    <Text style={styles.heading}>Search for new art...</Text>
+                    <TextInput
+                        style={styles.input}
+                        value={searchQuery}
+                        onChangeText={handleSearch}
+                        placeholder="Search..."
+                        placeholderTextColor="#666"
+                    />
+                </View>
+                <View>
+                    {isLoading ? (
+                        <ActivityIndicator size="large" color="#ccc" />
+                    ) : searchQuery === '' ? (
+                        <Text style={styles.searchPrompt}>Search for art and artists...</Text>
+                    ) : artwork.length === 0 ? (
+                        <Text>No results found.</Text>
+                    ) : (
+                        artwork.map((art) => <ThumbnailArtwork key={art.id} {...art} />)
+                    )}
+                </View>
             </View>
-    </ScrollView>
-  )
+        </ScrollView>
+    )
 }
 
 const styles = StyleSheet.create({
     input: {
-        height: 40,
-        margin: 12,
+        height: 50,
         borderWidth: 1,
-        padding: 10,
         borderRadius: 10,
         backgroundColor: '#fff',
         borderColor: '#ccc',
         fontSize: 18,
+        paddingHorizontal: 10,
+    },
+    heading: {
+        fontSize: 24,
+        fontWeight: '600',
+        marginBottom: 5,
+    },
+    container: {
+        padding: 20,
+    },
+    header: {
+        marginBottom: 20,
+    },
+    searchPrompt: {
+        fontSize: 16,
+        color: '#666',
+        textAlign: 'center',
+        marginTop: 20,
     },
 })
 

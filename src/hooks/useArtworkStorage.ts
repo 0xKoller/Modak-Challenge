@@ -9,13 +9,13 @@ const useArtworkStorage = () => {
             const artworks = await AsyncStorage.getItem(ARTWORK_KEY)
                 if (artworks !== null) {
                     const parsedArtworks = JSON.parse(artworks)
-                    if(parsedArtworks.includes(artwork)) return Promise.reject("Artwork already saved.")
+                    if(parsedArtworks.includes(artwork)) return Promise.resolve({isAlreadySaved: true, message: "Artwork already saved."})
                     const newArtworks = [...parsedArtworks, artwork]
                     await AsyncStorage.setItem(ARTWORK_KEY, JSON.stringify(newArtworks))
                 } else {
                     await AsyncStorage.setItem(ARTWORK_KEY, JSON.stringify([artwork]))
                 }
-                return Promise.resolve("Artwork saved succesfully.")
+                return Promise.resolve({isAlreadySaved: false, message: "Artwork saved."})
             } catch (e) {
                 return Promise.reject(e)
             }
@@ -27,14 +27,13 @@ const useArtworkStorage = () => {
                 if (artwork == null) {
                     return Promise.resolve("There is no artwork saved.")
                 }
-                console.log(artwork)
                 return Promise.resolve(artwork)
             } catch (e) {
                 return Promise.reject(e)
             }
     }
     
-    const handleRemoveArtwork = async (id: String) => {
+    const handleRemoveArtwork = async (id: string) => {
     try {
         const artwork = await AsyncStorage.getItem(ARTWORK_KEY);
         if (artwork == null || artwork.length < 1) {

@@ -59,7 +59,7 @@ function ExhibitionDetail() {
   
   return (
     <ScrollView>
-        <Header />
+        
         <View style={styles.container}>
           <Text style={styles.title} >{exhibition.title}</Text>
           {exhibition.image_url !== null && (
@@ -73,14 +73,14 @@ function ExhibitionDetail() {
                 {exhibition.gallery_title !== undefined && exhibition.gallery_title !== null && <Text style={styles.headings}>Been displayed at: <Text style={styles.value}> {exhibition.gallery_title} </Text></Text>}
                 
                 <Text style={styles.headings}>Status: <Text style={styles.value}> {exhibition.status} </Text></Text>
-                {exhibition.short_description !== undefined && <Text style={styles.headings}>Description: <Text style={styles.value}> {cleanTags(exhibition.short_description)} </Text></Text>}
+                {exhibition.short_description !== undefined && <Text style={styles.headings}>Description: <Text style={styles.value}> {(exhibition.short_description)} </Text></Text>}
                 
               </View>
               <View style={styles.divider}>
                 <Text style={styles.subtitle}>Dates</Text>
                 <View style={styles.dates}>
-                {exhibition.aic_start_at !== undefined && <Text style={styles.headings}>From: <Text style={styles.value}> {cleanDates(exhibition.aic_start_at)} </Text></Text>}
-                {exhibition.aic_end_at !== undefined && <Text style={styles.headings}>To: <Text style={styles.value}> {cleanDates(exhibition.aic_end_at)} </Text></Text>}
+                {exhibition.aic_start_at !== undefined && <Text style={styles.headings}>From: <Text style={styles.value}> {(exhibition.aic_start_at)} </Text></Text>}
+                {exhibition.aic_end_at !== undefined && <Text style={styles.headings}>To: <Text style={styles.value}> {(exhibition.aic_end_at)} </Text></Text>}
                 </View>
               </View>
               {exhibition.artwork_titles && exhibition.artwork_titles.length > 0 && <View style={styles.divider}>

@@ -3,10 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { RootStackParams } from '../types';
-import Home from '../views/Home';
 import ArtworkDetail from '../views/ArtworkDetail';
 import ExhibitionDetail from '../views/ExhibitionDetail';
-import Saved from '../views/Saved';
 import BottomTabNavigator from '../components/BottomNavigator/BottomNavigator';
 import ArtworkDiscover from '../views/ArtworkDiscover';
 
@@ -14,12 +12,11 @@ const Stack = createNativeStackNavigator<RootStackParams>();
 const screenOptions = {
     headerStyle: {
         backgroundColor: '#fff',
-        shadowColor: "#000", // El color de la sombra
-        shadowOffset: { width: 0, height: 4 }, // La dirección de la sombra
-        shadowOpacity: 0.3, // La opacidad de la sombra
-        shadowRadius: 5, // El desenfoque de la sombra
-        // Propiedad de sombra para Android
-        elevation: 8, // La altura de la sombra, que da el efecto 3D
+        shadowColor: "#000", 
+        shadowOffset: { width: 0, height: 4 }, 
+        shadowOpacity: 0.3, 
+        shadowRadius: 5, 
+        elevation: 8,
         paddingTop: 40,
     }
 }
