@@ -1,1 +1,1 @@
-export {default} from './ArtworkDiscover'
+export { default } from './ArtworkDiscover';

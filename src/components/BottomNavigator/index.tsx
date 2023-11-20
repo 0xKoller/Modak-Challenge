@@ -1,1 +1,1 @@
-export {default} from './BottomNavigator'
+export { default } from './BottomNavigator';

@@ -22,7 +22,7 @@ const BottomTabNavigator = () => {
           return <Ionicons name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: '#555',
-        tabBarInactiveTintColor: '#ccc', 
+        tabBarInactiveTintColor: '#ccc',
       })}
     >
       <Tab.Screen name="Home" component={Home} />
@@ -30,6 +30,6 @@ const BottomTabNavigator = () => {
       <Tab.Screen name="Saved" component={Saved} />
     </Tab.Navigator>
   );
-}
+};
 
 export default BottomTabNavigator;
